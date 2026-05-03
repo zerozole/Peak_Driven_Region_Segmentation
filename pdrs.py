@@ -177,14 +177,28 @@ def detect_flares(mjd, flux, mag, threshold_factor):
         prev_s, prev_e = merged_indices[-1]
         next_s, next_e = raw_clusters[i]['start_idx'], raw_clusters[i]['end_idx']
         next_peak_f = raw_clusters[i]['peak_flux']
-        saddle_f = np.min(flux[prev_e:next_s + 1]) if next_s > prev_e else median_f
-        is_shallow = (saddle_f - median_f) > (SADDLE_RATIO * (min(curr_peak_f, next_peak_f) - median_f))
-        if next_s <= prev_e + 2 or is_shallow:
+
+        temporal_gap = mjd[next_s] - mjd[prev_e]
+        no_data_between = next_s <= prev_e + 1
+
+        if temporal_gap > MAX_GAP:
+            # Large data void — always separate
+            merged_indices.append([next_s, next_e])
+            curr_peak_f = next_peak_f
+        elif no_data_between or next_s <= prev_e + 2:
+            # Adjacent or overlapping — always merge
             merged_indices[-1][1] = next_e
             curr_peak_f = max(curr_peak_f, next_peak_f)
         else:
-            merged_indices.append([next_s, next_e])
-            curr_peak_f = next_peak_f
+            # True saddle exists between clusters
+            saddle_f = np.min(flux[prev_e + 1:next_s])
+            is_shallow = (saddle_f - median_f) > (SADDLE_RATIO * (min(curr_peak_f, next_peak_f) - median_f))
+            if is_shallow:
+                merged_indices[-1][1] = next_e
+                curr_peak_f = max(curr_peak_f, next_peak_f)
+            else:
+                merged_indices.append([next_s, next_e])
+                curr_peak_f = next_peak_f
 
     # ============================================================
     # THE LAST GATE: FILTER OUT REGIONS WITH LOW MEDIAN
