@@ -15,9 +15,9 @@ BIN_SIZE = 3
 # Flare detection parameters
 PEAK_THRESHOLD = 2                 # Peak significance threshold (sigma above median)  
 SADDLE_RATIO     = 0.2             # Saddle-point merge depth ratio
-MIN_CLUSTER_SIZE = 5               # Minimum points in a valid cluster
+MIN_CLUSTER_SIZE = 3               # Minimum points in a valid cluster
 SMOOTH_WINDOW    = 7               # Window size for the gradient (descent logic)
-REGION_THRESHOLD = 1             # The median of the entire flare must be at least 1 sigma above global median
+REGION_THRESHOLD = 0.5             # The median of the entire flare must be at least 1 sigma above global median
 MAX_GAP = 60                      # Maximum temporal gap (days) before stopping expansion
 
 # ============================================================
