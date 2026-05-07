@@ -21,3 +21,19 @@ While built for astronomy, its domain-agnostic architecture makes it applicable 
 * **Gradient-Aware Expansion:** Pushes through localized noise and plateaus using a pre-computed smoothed gradient.
 * **Saddle-Point Merging:** Prevents over-segmentation of single physical events that display minor substructure.
 * **Interpretable Parameters:** Tunable morphological constraints (minimum cluster size, region support, maximum temporal gaps) provide strict control over false-positive rates.
+
+## Citation
+
+If you use this code or PRDS algorithm, please cite:
+
+```
+@article{agrawal2026pdrslinearmathcalon,
+      title={PDRS : A Linear $\mathcal{O}(N)$ Algorithm for Segmentation of High-Activity Regions in Irregularly Sampled Time Series}, 
+      author={Atal Agrawal},
+      year={2026},
+      eprint={2605.02843},
+      archivePrefix={arXiv},
+      primaryClass={astro-ph.IM},
+      url={https://arxiv.org/abs/2605.02843}, 
+}
+```
