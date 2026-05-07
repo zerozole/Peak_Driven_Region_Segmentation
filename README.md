@@ -7,7 +7,7 @@
 **Author:** Atal Agrawal  
 **Affiliation:** Department of Physics, Indian Institute of Technology Roorkee
 
-This repository contains the code the PDRS.
+This repository contains the python implementation of PDRS.
 
 
 PDRS is an **O(N)** algorithm designed to efficiently isolate transient high-activity regions in irregularly sampled time series data. 
